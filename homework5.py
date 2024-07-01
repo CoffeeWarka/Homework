@@ -6,5 +6,5 @@ print(immutable_var)
 # что никак не повлияет на кортеж в целом.
 
 mutable_list = [2, 'sentence', ['head', 'eye'], True]
-mutable_list = [3, 'story', ['hat', 'glasses'], False]
+mutable_list.append('final cut')
 print(mutable_list)
