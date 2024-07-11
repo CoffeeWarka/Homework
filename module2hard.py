@@ -1,4 +1,5 @@
-n = int(input())
+import random
+n = random.randrange(3, 21)
 result = []
 
 for i in range(1, 20):
