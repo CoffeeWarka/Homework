@@ -25,4 +25,7 @@ def send_email(message, recipient, sender="university.help@gmail.com"):
         return
 
 
+send_email('Python is here', 'me.com', 'university.help@gmail.com')
 send_email('this is not spam', 'ololo.com', 'univesity.help@gmail.com')
+send_email('From Paris with love', 'me.ru', 'oué.fr')
+send_email("don't forget about the iron", 'me@com', 'me@com')
