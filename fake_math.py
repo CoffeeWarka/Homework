@@ -1,4 +1,4 @@
-def divide_zero_not(first, second):
+def divide_zero(first, second):
     if second == 0:
         return "Ошибка"
     else:
