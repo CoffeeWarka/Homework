@@ -26,4 +26,3 @@ del h2
 del h3
 
 print(House.houses_history)
-https://github.com/CoffeeWarka/Homework/blob/804ffabec077d6363982564ced5578171ab3ad8f/module_5_4.py
