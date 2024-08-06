@@ -17,13 +17,13 @@ class Video:
 
 class UrTube:
     def __init__(self):
-        users = []
-        videos = []
-        current_user = User
+        self.users = []
+        self.videos = []
+        self.current_user = User
 
     def log_in(self, nickname, password):
         password = hash(password)
-        if nickname and password in self.current_user:
+        if nickname and password in self.users:
             self.current_user = User
 
     def register(self, nickname, password, age):
@@ -33,6 +33,9 @@ class UrTube:
         if nickname in self.users:
             print(f'Пользователь {nickname} уже существует.')
         else:
-            self.users = self.users.append(User)
+            self.users = self.users.append(nickname + password)
+
+    def log_out(self):
+        User = None
 
 ur = UrTube()
