@@ -6,7 +6,7 @@ class User:
 
 
 class Video:
-    def __init__(self, title, duration, time_now = 0, adult_mod = False):
+    def __init__(self, title = '', duration = 0, time_now = 0, adult_mod = False):
         self.title = title
         self.duration = duration
         self.time_now = time_now
@@ -19,19 +19,18 @@ class UrTube:
         self.videos = videos
         self.current_user = current_user
 
-
-
+    # good_one
     def log_in(self, nickname, password):
         log_in = False
         users = ur.users
         cur_user = ur.current_user
         for i in users:
-            if i.__contains__(nickname) and i.__contains__(hash(password)):
+            if i.__contains__(nickname) and i.__contains__(password):
                 cur_user = User
                 log_in = True
                 return log_in
 
-        # good_one
+
     def register(self, nickname, password, age):
         self.nickname = nickname
         self.password = password
@@ -45,23 +44,31 @@ class UrTube:
                 UrTube.log_in(self, nickname, hash(password))
 
 
-    # good_one
+
 
 
 
     def log_out(self):
         self.current_user = None
 
-    def add(self, *args):
-        if args not in self.videos:
-            self.videos = self.videos.append(Video)
+        # good_one
 
+    def add(self, *args):
+        videos_list = self.videos
+        vid = Video
+        for i in args:
+            if not videos_list.__contains__(i.title):
+                videos_list.append(i)
+
+                #good_one
+
+            #test
     def get_videos(self, search):
-        videos_list = []
-        search_low = search.casefold()
+        search_list = self.videos
         for i in self.videos:
-            if i.title == search_low:
-                videos_list = videos_list.append(i.title)
+            if i.title.casefold() == search.casefold():
+                search_list.append(i.title)
+            #test
 
     def watch_video(self):
         if not self.log_in:
@@ -77,5 +84,8 @@ if __name__ == 'main':
 
 ur = UrTube()
 ur.register('Nik', 'nlol', 29)
-ur.register('Kik', 'klol', 29)
+# ur.register('Kik', 'klol', 29)
 # ur.register('Kik', 'lol', 29)
+v1 = Video('Movie', 200)
+v2 = Video('Kinky', 130, adult_mod=True)
+ur.add(v1, v2)
