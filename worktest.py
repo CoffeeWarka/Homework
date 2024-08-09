@@ -14,27 +14,40 @@ class Video:
 
 
 class UrTube:
-    def __init__(self):
-        self.users = []
-        self.videos = []
-        self.current_user = User
+    def __init__(self, users = [], videos = [], current_user = User):
+        self.users = users
+        self.videos = videos
+        self.current_user = current_user
+
+
 
     def log_in(self, nickname, password):
         log_in = False
-        password = hash(password)
-        if nickname and password in self.users:
-            self.current_user = User
-            log_in = True
-        return log_in
+        users = ur.users
+        cur_user = ur.current_user
+        for i in users:
+            if i.__contains__(nickname) and i.__contains__(hash(password)):
+                cur_user = User
+                log_in = True
+                return log_in
 
+        # good_one
     def register(self, nickname, password, age):
         self.nickname = nickname
         self.password = password
         self.age = age
-        if self.users.__contains__(self.nickname):
-            print(f'Пользователь {nickname} уже существует.')
+        users = self.users
+        for i in users:
+            if i.__contains__(nickname):
+                print(f'Пользователь {nickname} уже существует.')
         else:
-            self.users = self.users.append(User)
+                users = users.append([nickname, hash(password), age])
+                UrTube.log_in(self, nickname, hash(password))
+
+
+    # good_one
+
+
 
     def log_out(self):
         self.current_user = None
@@ -56,7 +69,13 @@ class UrTube:
 
 
 
+if __name__ == 'main':
+    user = User()
+    video = Video()
+# ur.register("Nik", 'ololo', 29)
+# ur.register('Nik', 'lol', 20)
 
 ur = UrTube()
-ur.register("Nik", 'ololo', 29)
-ur.register('Nik', 'lol', 20)
+ur.register('Nik', 'nlol', 29)
+ur.register('Kik', 'klol', 29)
+# ur.register('Kik', 'lol', 29)
