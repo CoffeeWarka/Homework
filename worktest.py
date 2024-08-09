@@ -1,3 +1,6 @@
+import time
+
+
 class User:
     def __init__(self, nickname, password, age):
         self.nickname = nickname
@@ -43,15 +46,8 @@ class UrTube:
                 users = users.append([nickname, hash(password), age])
                 UrTube.log_in(self, nickname, hash(password))
 
-
-
-
-
-
     def log_out(self):
         self.current_user = None
-
-        # good_one
 
     def add(self, *args):
         videos_list = self.videos
@@ -60,19 +56,32 @@ class UrTube:
             if not videos_list.__contains__(i.title):
                 videos_list.append(i)
 
-                #good_one
-
-            #test
     def get_videos(self, search):
         search_list = self.videos
         for i in self.videos:
             if i.title.casefold() == search.casefold():
                 search_list.append(i.title)
-            #test
+#good_one
 
-    def watch_video(self):
+    def watch_video(self, video_title):
+        
         if not self.log_in:
             print('Войдите в аккаунт, чтобы смотреть видео')
+        
+        #good_one
+        
+        for i in self.videos:
+            if video_title.__eq__(i.title):
+                j = 1
+                while j <= i.duration:
+                    print(j, end=' ')
+                    time.sleep(1)
+                    j += 1
+                print('Конец видео')
+
+        #good_one
+
+
 
 
 
@@ -83,9 +92,10 @@ if __name__ == 'main':
 # ur.register('Nik', 'lol', 20)
 
 ur = UrTube()
-ur.register('Nik', 'nlol', 29)
+# ur.register('Nik', 'nlol', 29)
 # ur.register('Kik', 'klol', 29)
 # ur.register('Kik', 'lol', 29)
 v1 = Video('Movie', 200)
-v2 = Video('Kinky', 130, adult_mod=True)
+v2 = Video('Kinky', 5, adult_mod=True)
 ur.add(v1, v2)
+ur.watch_video('Kinky')
