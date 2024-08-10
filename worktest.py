@@ -1,38 +1,29 @@
 import time
-
-
 class User:
-    def __init__(self, nickname, password, age):
+    def __init__(self, nickname = '', password = '', age = 0):
         self.nickname = nickname
         self.password = hash(password)
         self.age = age
 
-
 class Video:
-    def __init__(self, title = '', duration = 0, time_now = 0, adult_mod = False):
+    def __init__(self, title='', duration=0, time_now=0, adult_mode = False):
         self.title = title
         self.duration = duration
         self.time_now = time_now
-        self.adult_mod = adult_mod
+        self.adult_mode = adult_mode
 
 
 class UrTube:
-    def __init__(self, users = [], videos = [], current_user = User):
+    def __init__(self, users=[], videos=[], current_user=User):
         self.users = users
         self.videos = videos
         self.current_user = current_user
 
     # good_one
-    def log_in(self, nickname, password):
-        log_in = False
-        users = ur.users
-        cur_user = ur.current_user
-        for i in users:
-            if i.__contains__(nickname) and i.__contains__(password):
-                cur_user = User
-                log_in = True
-                return log_in
 
+#wtf?!
+    def log_in(self, nickname, password):
+        
 
     def register(self, nickname, password, age):
         self.nickname = nickname
@@ -42,63 +33,64 @@ class UrTube:
         for i in users:
             if i.__contains__(nickname):
                 print(f'Пользователь {nickname} уже существует.')
-        else:
-                users = users.append([nickname, hash(password), age])
-                UrTube.log_in(self, nickname, hash(password))
+            else:
+                users.append(i)
+                UrTube.log_in(self, nickname, password)
 
     def log_out(self):
         self.current_user = None
 
     def add(self, *args):
         videos_list = self.videos
-        vid = Video
         for i in args:
-            if not videos_list.__contains__(i.title):
+            if not videos_list.__contains__(i):
                 videos_list.append(i)
 
+
+
     def get_videos(self, search):
-        search_list = self.videos
+        result = []
         for i in self.videos:
-            if i.title.casefold() == search.casefold():
-                search_list.append(i.title)
-#good_one
+            search_title_low = i.title.casefold()
+            if search_title_low.__contains__(search.casefold()):
+                result.append(i.title)
+        return result
 
+    # good_one
+
+
+#wtf?!
     def watch_video(self, video_title):
-        
-        if not self.log_in:
-            print('Войдите в аккаунт, чтобы смотреть видео')
-        
-        #good_one
-        
-        for i in self.videos:
-            if video_title.__eq__(i.title):
-                j = 1
-                while j <= i.duration:
-                    print(j, end=' ')
-                    time.sleep(1)
-                    j += 1
-                print('Конец видео')
 
-        #good_one
+            if self.current_user is None:
+                print('Войдите в аккаунт, чтобы смотреть видео')
+            else:
+                for i in self.videos:
+                    if video_title.__eq__(i.title):
+                        j = 1
+                        while j <= i.duration:
+                            print(j, end=' ')
+                            time.sleep(1)
+                            j += 1
+                        print('Конец видео')
 
-
+        # if self.age < 18 and self.current_user is not None:
+        #             print("Вам нет 18 лет, пожалуйста покиньте страницу")
+        #     print('Войдите в аккаунт, чтобы смотреть видео')
 
 
 
+        # good_one
+
+
+
+
+        # good_one
 if __name__ == 'main':
-    user = User()
-    video = Video()
-# ur.register("Nik", 'ololo', 29)
-# ur.register('Nik', 'lol', 20)
+    ur = UrTube()
+    users = ur.users
+    cur_user = ur.current_user
 
-ur = UrTube()
-# ur.register('Nik', 'nlol', 29)
-# ur.register('Kik', 'klol', 29)
-# ur.register('Kik', 'lol', 29)
-v1 = Video('Movie', 200)
-v2 = Video('Kinky', 5, adult_mod=True)
-ur.add(v1, v2)
-ur.watch_video('Kinky')
 
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
@@ -124,3 +116,4 @@ print(ur.current_user)
 
 # Попытка воспроизведения несуществующего видео
 ur.watch_video('Лучший язык программирования 2024 года!')
+
