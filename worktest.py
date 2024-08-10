@@ -22,8 +22,18 @@ class UrTube:
     # good_one
 
 #wtf?!
+
+
+
     def log_in(self, nickname, password):
-        
+        enter = False
+        for i in self.users:
+            hash_pass = i.password
+            if i.__contains__(nickname) and password.__eq__(hash_pass):
+                self.current_user = User(self.nickname, self.password, self.age)
+                enter = True
+        return enter
+
 
     def register(self, nickname, password, age):
         self.nickname = nickname
@@ -61,18 +71,17 @@ class UrTube:
 
 #wtf?!
     def watch_video(self, video_title):
-
-            if self.current_user is None:
-                print('Войдите в аккаунт, чтобы смотреть видео')
-            else:
-                for i in self.videos:
-                    if video_title.__eq__(i.title):
-                        j = 1
-                        while j <= i.duration:
-                            print(j, end=' ')
-                            time.sleep(1)
-                            j += 1
-                        print('Конец видео')
+        if not self.log_in(self.nickname, self.password):
+            print('Войдите в аккаунт, чтобы смотреть видео')
+        else:
+            for i in self.videos:
+                if video_title.__eq__(i.title):
+                    j = 1
+                    while j <= i.duration:
+                        print(j, end=' ')
+                        time.sleep(1)
+                        j += 1
+                    print('Конец видео')
 
         # if self.age < 18 and self.current_user is not None:
         #             print("Вам нет 18 лет, пожалуйста покиньте страницу")
@@ -98,22 +107,23 @@ v2 = Video('Для чего девушкам парень программист
 
 # Добавление видео
 ur.add(v1, v2)
-
-# Проверка поиска
-print(ur.get_videos('лучший'))
-print(ur.get_videos('ПРОГ'))
-
-# Проверка на вход пользователя и возрастное ограничение
+print(ur.log_in('Nik', "ololo"))
+#
+# # Проверка поиска
+# print(ur.get_videos('лучший'))
+# print(ur.get_videos('ПРОГ'))
+#
+# # Проверка на вход пользователя и возрастное ограничение
 ur.watch_video('Для чего девушкам парень программист?')
 ur.register('vasya_pupkin', 'lolkekcheburek', 13)
-ur.watch_video('Для чего девушкам парень программист?')
-ur.register('urban_pythonist', 'iScX4vIJClb9YQavjAgF', 25)
-ur.watch_video('Для чего девушкам парень программист?')
-
-# Проверка входа в другой аккаунт
-ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
-print(ur.current_user)
-
-# Попытка воспроизведения несуществующего видео
-ur.watch_video('Лучший язык программирования 2024 года!')
+# ur.watch_video('Для чего девушкам парень программист?')
+# ur.register('urban_pythonist', 'iScX4vIJClb9YQavjAgF', 25)
+# ur.watch_video('Для чего девушкам парень программист?')
+#
+# # Проверка входа в другой аккаунт
+# ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
+# print(ur.current_user)
+#
+# # Попытка воспроизведения несуществующего видео
+# ur.watch_video('Лучший язык программирования 2024 года!')
 
