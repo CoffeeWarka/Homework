@@ -9,9 +9,8 @@ class User:
         self.age = age
 
 
-
 class Video:
-    def __init__(self, title = '', duration = 0, time_now = 0, adult_mode = False):
+    def __init__(self, title='', duration=0, time_now=0, adult_mode=False):
         self.title = title
         self.duration = duration
         self.time_now = time_now
@@ -19,7 +18,7 @@ class Video:
 
 
 class UrTube:
-    def __init__(self, users = [], videos = [], current_user = User):
+    def __init__(self, users=[], videos=[], current_user=User):
         self.users = users
         self.videos = videos
         self.current_user = current_user
@@ -71,26 +70,23 @@ class UrTube:
 
     def watch_video(self, video_title):
         for i in self.videos:
-                if video_title.__eq__(i.title):
-                    if not UrTube.user_log_in:
-                        print('Войдите в аккаунт, чтобы смотреть видео')
-                    elif UrTube.user_log_in:
-                        if self.age < 18:
-                            print("Вам нет 18 лет, пожалуйста покиньте страницу")
-                        else:
-                            j = 1
-                            while j <= i.duration:
-                                print(j, end=' ')
-                                time.sleep(1)
-                                j += 1
-                            print('Конец видео')
-        else:
-            return
+            if video_title.__eq__(i.title):
+                if not UrTube.user_log_in:
+                    print('Войдите в аккаунт, чтобы смотреть видео')
+                elif self.age < 18:
+                    print("Вам нет 18 лет, пожалуйста покиньте страницу")
+                else:
+                    while i.time_now < i.duration:
+                        i.time_now += 1
+                        print(i.time_now, end=' ')
+                        time.sleep(1)
+                    print('Конец видео')
+                    i.time_now = 0
 
 
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
-v2 = Video('Для чего девушкам парень программист?', 1, adult_mode=True)
+v2 = Video('Для чего девушкам парень программист?', 10, adult_mode=True)
 
 # Добавление видео
 ur.add(v1, v2)
