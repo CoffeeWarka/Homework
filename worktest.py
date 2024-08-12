@@ -35,7 +35,7 @@ class UrTube:
                 self.current_user = self.nickname.__str__()
                 UrTube.user_log_in = True
                 return UrTube.user_log_in
-    
+
     def register(self, nickname, password, age):
         self.nickname = nickname
         self.password = password
@@ -53,7 +53,7 @@ class UrTube:
     def log_out(self):
         self.current_user = None
         return self.current_user
-        
+
     def add(self, *args):
         videos_list = self.videos
         vid = Video
@@ -70,24 +70,27 @@ class UrTube:
         return result
 
     def watch_video(self, video_title):
-        if not UrTube.user_log_in:
-            print('Войдите в аккаунт, чтобы смотреть видео')
-        elif self.age < 18:
-            print("Вам нет 18 лет, пожалуйста покиньте страницу")
-        else:
-            for i in self.videos:
+        for i in self.videos:
                 if video_title.__eq__(i.title):
-                    j = 1
-                    while j <= i.duration:
-                        print(j, end=' ')
-                        time.sleep(1)
-                        j += 1
-                    print('Конец видео')
+                    if not UrTube.user_log_in:
+                        print('Войдите в аккаунт, чтобы смотреть видео')
+                    elif UrTube.user_log_in:
+                        if self.age < 18:
+                            print("Вам нет 18 лет, пожалуйста покиньте страницу")
+                        else:
+                            j = 1
+                            while j <= i.duration:
+                                print(j, end=' ')
+                                time.sleep(1)
+                                j += 1
+                            print('Конец видео')
+        else:
+            return
 
 
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
-v2 = Video('Для чего девушкам парень программист?', 10, adult_mode=True)
+v2 = Video('Для чего девушкам парень программист?', 1, adult_mode=True)
 
 # Добавление видео
 ur.add(v1, v2)
