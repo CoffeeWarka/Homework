@@ -32,6 +32,7 @@ class UrTube:
             hash_log_in_pass = hash(password)
             if nickname in self.nickname and hash_user_pass.__eq__(hash_log_in_pass):
                 self.current_user = User(self.nickname, self.password, self.age)
+                self.current_user = self.nickname.__str__()
                 UrTube.user_log_in = True
                 return UrTube.user_log_in
     
