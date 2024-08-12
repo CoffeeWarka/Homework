@@ -9,6 +9,7 @@ class User:
         self.age = age
 
 
+
 class Video:
     def __init__(self, title = '', duration = 0, time_now = 0, adult_mode = False):
         self.title = title
@@ -23,38 +24,35 @@ class UrTube:
         self.videos = videos
         self.current_user = current_user
 
-
-
     user_log_in = False
-    # good_one
+
     def log_in(self, nickname, password):
-        for i in self.users:
+        for _ in self.users:
             hash_user_pass = hash(self.password)
             hash_log_in_pass = hash(password)
             if nickname in self.nickname and hash_user_pass.__eq__(hash_log_in_pass):
                 self.current_user = User(self.nickname, self.password, self.age)
                 UrTube.user_log_in = True
                 return UrTube.user_log_in
-
-
+    
     def register(self, nickname, password, age):
         self.nickname = nickname
         self.password = password
         self.age = age
         users = self.users
         UrTube.log_in(self, nickname, password)
-        if UrTube.user_log_in == False:
+        if not UrTube.user_log_in:
             for i in users:
                 if i.nickname.__contains__(nickname):
                     print(f'Пользователь {nickname} уже существует.')
             else:
-                users = users.append(User)
+                users.append(User)
                 UrTube.log_in(self, nickname, password)
-
 
     def log_out(self):
         self.current_user = None
         return self.current_user
+        
     def add(self, *args):
         videos_list = self.videos
         vid = Video
@@ -69,14 +67,13 @@ class UrTube:
             if search_title_low.__contains__(search.casefold()):
                 result.append(i.title)
         return result
-#good_one
 
     def watch_video(self, video_title):
         if not UrTube.user_log_in:
             print('Войдите в аккаунт, чтобы смотреть видео')
         elif self.age < 18:
             print("Вам нет 18 лет, пожалуйста покиньте страницу")
-        elif UrTube.user_log_in:
+        else:
             for i in self.videos:
                 if video_title.__eq__(i.title):
                     j = 1
@@ -87,20 +84,9 @@ class UrTube:
                     print('Конец видео')
 
 
-        #good_one
-
-
-
-
-#
-# if __name__ == 'main':
-#     user = User()
-#     video = Video()
-
-
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
-v2 = Video('Для чего девушкам парень программист?', 1, adult_mode=True)
+v2 = Video('Для чего девушкам парень программист?', 10, adult_mode=True)
 
 # Добавление видео
 ur.add(v1, v2)
