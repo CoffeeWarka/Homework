@@ -1,5 +1,5 @@
 class Vehicle:
-    __COLOR_VARIANTS = ['Black', 'Red', 'Yellow', 'Blue', 'Purple', 'Pink']
+    __COLOR_VARIANTS = ['Black', 'Red', 'Yellow', 'Blue', 'Purple']
 
     def __init__(self, owner, __model, __engine_power, __color):
         self.owner = owner
@@ -23,14 +23,11 @@ class Vehicle:
         print(f'Владелец: {self.owner}')
 
     def set_color(self, new_color):
-        for i in self.__COLOR_VARIANTS:
-            i_low = i.casefold()
-            new_color_low = new_color.casefold()
-            if new_color_low.__contains__(i_low):
-                self.__color = new_color
-                break
-            else:
-                print(f'Нельзя сменить цвет на {new_color}')
+        new_color_low = new_color.casefold()
+        if new_color_low in [x.lower() for x in self.__COLOR_VARIANTS]:
+            self.__color = new_color
+        else:
+            print(f'Нельзя сменить цвет на {new_color}')
 
 class Sedan(Vehicle):
     __PASSENGERS_LIMIT = 5
