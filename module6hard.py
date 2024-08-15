@@ -44,7 +44,7 @@ class Figure:
                 self.__sides = self.__sides
 
     def get_sides(self):
-        sides = self.__sides
+        sides = list(self.__sides)
         return sides
 
 
@@ -52,20 +52,20 @@ class Figure:
 
 
 
-fig = Figure((200,200,200), 5)
+fig = Figure((200,200,200), (20,20))
 # fig.set_color(44, 33, 55)
 # print(fig.get_color())
 # fig.set_sides(5,3,12,4,5)
 # print(fig.get_sides())
 # print(fig.is_valid_sides(11))
-fig.set_sides(125, 111)
+fig.set_sides(12,11)
 print(fig.get_sides())
 
-создание массива с одинаковыми значениями в питоне
-import numpy as np
-np.full(
-  shape=10,
-  fill_value=3,
-  dtype=np.int
-)
-> array([3, 3, 3, 3, 3, 3, 3, 3, 3, 3])
+# создание массива с одинаковыми значениями в питоне
+# import numpy as np
+# np.full(
+#   shape=10,
+#   fill_value=3,
+#   dtype=np.int
+# )
+# > array([3, 3, 3, 3, 3, 3, 3, 3, 3, 3])
