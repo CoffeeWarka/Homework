@@ -40,26 +40,30 @@ class Figure:
         if self.__is_valid_sides(*new_sides):
             if len(new_sides) == self.sides_count:
                 self.__sides = self.new_sides
-            else:
-                self.__sides = self.__sides
 
     def get_sides(self):
         sides = list(self.__sides)
         return sides
 
+    def __len__(self):
+        perim = 0
+        for i in self.__sides:
+            perim += i
+        return perim
 
 
 
 
 
-fig = Figure((200,200,200), (20,20))
+fig = Figure((200,200,200), (211,20))
 # fig.set_color(44, 33, 55)
 # print(fig.get_color())
 # fig.set_sides(5,3,12,4,5)
 # print(fig.get_sides())
 # print(fig.is_valid_sides(11))
-fig.set_sides(12,11)
+fig.set_sides(12)
 print(fig.get_sides())
+print(len(fig))
 
 # создание массива с одинаковыми значениями в питоне
 # import numpy as np
