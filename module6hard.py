@@ -1,10 +1,16 @@
 class Figure:
-    sides_count = 2
+    sides_count = 0
 
     def __init__(self, __color=[], __sides=[], filled=False):
         self.__sides = __sides
         self.__color = __color
         self.filled = filled
+
+    def cor_sides(self):
+        if self.__sides == self.sides_count:
+            self.__sides
+
+
 
     def get_color(self):
         color_list = list(self.__color)
@@ -39,11 +45,10 @@ class Figure:
         self.new_sides = new_sides
         if self.__is_valid_sides(*new_sides):
             if len(new_sides) == self.sides_count:
-                self.__sides = self.new_sides
+                self.__sides = list(self.new_sides)
 
     def get_sides(self):
-        sides = list(self.__sides)
-        return sides
+        return self.__sides
 
     def __len__(self):
         perim = 0
@@ -52,24 +57,67 @@ class Figure:
         return perim
 
 
+class Circle(Figure):
+    sides_count = 1
+    def __init__(self, __color=[], __sides=[], filled=False):
+        super().__init__(__color, __sides, filled)
+        if len(self._Figure__sides) != self.sides_count:
+            self.__sides = 1
+        else:
+            self.__sides = __sides
+        __radius = self.__sides/(2*3.14)
+
+    def get_square(self):
+        square = 3.14 * (len(self.__sides)**2)
+        return square
+
+class Triangle(Figure):
+    sides_count = 3
+
+    def __init__(self, __color=[], __sides=[], filled=False):
+        super().__init__(__color, __sides, filled)
+
+        __height = 2 * self.get_square() / __sides[0]
+    def get_square(self):
+        half_perim = 0.5*(self._Figure__sides[0] + self._Figure__sides[1] + self._Figure__sides[2])
+        square = (half_perim * (half_perim - self._Figure__sides[0]) *
+                  (half_perim - self._Figure__sides[1]) * (half_perim - self._Figure__sides[2]))**0.5
+        __height = 2 * self.get_square() / self._Figure__sides[0]
+        return square
+
+class Cube(Figure):
+    sides_count = 12
+    def __init__(self, __color=[], __sides=[], filled=False):
+        super().__init__(__color, __sides, filled)
+        self._Figure__sides = [self._Figure__sides]*self.sides_count
+
+
+    def get_volume(self):
+        volume = self._Figure__sides[0] ** 3
+        return volume
 
 
 
-fig = Figure((200,200,200), (211,20))
-# fig.set_color(44, 33, 55)
-# print(fig.get_color())
-# fig.set_sides(5,3,12,4,5)
-# print(fig.get_sides())
-# print(fig.is_valid_sides(11))
-fig.set_sides(12)
-print(fig.get_sides())
-print(len(fig))
 
-# создание массива с одинаковыми значениями в питоне
-# import numpy as np
-# np.full(
-#   shape=10,
-#   fill_value=3,
-#   dtype=np.int
-# )
-# > array([3, 3, 3, 3, 3, 3, 3, 3, 3, 3])
+
+circle1 = Circle((200, 200, 100), (10,11,11)) # (Цвет, стороны)
+cube1 = Cube((222, 35, 130), 6)
+
+# Проверка на изменение цветов:
+circle1.set_color(55, 66, 77) # Изменится
+print(circle1.get_color())
+cube1.set_color(300, 70, 15) # Не изменится
+print(cube1.get_color())
+print(circle1._Figure__sides)
+#
+# # Проверка на изменение сторон:
+cube1.set_sides(5, 3, 12, 4, 5) # Не изменится
+print(cube1.get_sides())
+circle1.set_sides(15) # Изменится
+print(circle1.get_sides())
+#
+# # Проверка периметра (круга), это и есть длина:
+print(len(circle1))
+
+# Проверка объёма (куба):
+print(cube1.get_volume())
