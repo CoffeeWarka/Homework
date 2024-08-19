@@ -59,9 +59,6 @@ class Circle(Figure):
 
     def __init__(self, __color=[], *__sides):
         super().__init__(__color, __sides)
-        # if len(self.get_sides()) != self.sides_count:
-        #     # if isinstance(Figure, Circle):  # and self.cor_sides() is False:
-        #     self.__sides = [1]
         __radius = __sides[0] / (2 * 3.14)
 
     def get_square(self):
