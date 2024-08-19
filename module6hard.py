@@ -1,33 +1,13 @@
 class Figure:
     sides_count = 0
 
-    def __init__(self, __color=[], __sides=[], filled=False):
-        # if isinstance(Figure, Circle) and self.cor_sides() is False:
-        #     self.__sides = [1]
-        # elif isinstance(Figure, Triangle) and self.cor_sides() is False:
-        #     self.__sides = [1, 1, 1]
-        # elif isinstance(Figure, Cube) and self.cor_sides() is False:
-        #     self.__sides = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        # else:
-        # if len([__sides]) == self.sides_count:
-        #     self.__sides = __sides
-        # else:
-        #     if isinstance(Figure, Circle): #and self.cor_sides() is False:
-        #         __sides = [1]
-        #     elif isinstance(Figure, Triangle): #and self.cor_sides() is False:
-        #         __sides = [1, 1, 1]
-        #     elif isinstance(Figure, Cube): #and self.cor_sides() is False:
-        #         __sides = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    def __init__(self, __color, __sides):
+        filled = False
         self.__sides = __sides
+        if len(self.__sides) != self.sides_count:
+            self.__sides = [1]*self.sides_count
         self.__color = __color
-        self.filled = filled
 
-    def cor_sides(self):
-        sides_list = [self.__sides]
-        if len(sides_list) == self.sides_count:
-            return True
-        else:
-            return False
 
     def get_color(self):
         color_list = list(self.__color)
@@ -62,10 +42,10 @@ class Figure:
         self.new_sides = new_sides
         if self.__is_valid_sides(*new_sides):
             if len(new_sides) == self.sides_count:
-                self.__sides = list(self.new_sides)
+                self.__sides = self.new_sides
 
     def get_sides(self):
-        return self.__sides
+        return list(self.__sides)
 
     def __len__(self):
         perim = 0
@@ -77,24 +57,23 @@ class Figure:
 class Circle(Figure):
     sides_count = 1
 
-    def __init__(self, __color=[], __sides=[], filled=False):
-        super().__init__(__color, __sides, filled)
-        if len([self._Figure__sides]) != self.sides_count:
-            self.__sides = 1
-        else:
-            self.__sides = __sides
-        __radius = self.__sides / (2 * 3.14)
+    def __init__(self, __color=[], *__sides):
+        super().__init__(__color, __sides)
+        # if len(self.get_sides()) != self.sides_count:
+        #     # if isinstance(Figure, Circle):  # and self.cor_sides() is False:
+        #     self.__sides = [1]
+        __radius = __sides[0] / (2 * 3.14)
 
     def get_square(self):
-        square = 3.14 * (len(self.__sides) ** 2)
+        square = 3.14 * (self._Figure__sides[0] ** 2)
         return square
 
 
 class Triangle(Figure):
     sides_count = 3
 
-    def __init__(self, __color=[], __sides=[], filled=False):
-        super().__init__(__color, __sides, filled)
+    def __init__(self, __color=[], *__sides):
+        super().__init__(__color, __sides)
 
         __height = 2 * self.get_square() / __sides[0]
 
@@ -109,9 +88,17 @@ class Triangle(Figure):
 class Cube(Figure):
     sides_count = 12
 
-    def __init__(self, __color=[], __sides=[], filled=False):
-        super().__init__(__color, __sides, filled)
-        self._Figure__sides = [__sides] * self.sides_count
+    def __init__(self, __color=[], *__sides):
+        super().__init__(__color, __sides)
+        cube_sides = __sides
+        if len(cube_sides) == 1:
+            self._Figure__sides = __sides * self.sides_count
+        # if len(self._Figure__sides) == 1:
+        #     __sides = [__sides]*self.sides_count
+        else:
+            self.sides = __sides
+
+
 
     def get_volume(self):
         volume = self._Figure__sides[0] ** 3
@@ -138,3 +125,4 @@ print(len(circle1))
 
 # Проверка объёма (куба):
 print(cube1.get_volume())
+
