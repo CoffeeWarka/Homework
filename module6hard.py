@@ -91,10 +91,9 @@ class Cube(Figure):
     def __init__(self, __color=[], *__sides):
         super().__init__(__color, __sides)
         cube_sides = __sides
-        if len(cube_sides) == 1:
+        if (len(cube_sides) == 1 or
+                len(cube_sides) == 12 and __sides in [i for i in cube_sides]):
             self._Figure__sides = __sides * self.sides_count
-        # if len(self._Figure__sides) == 1:
-        #     __sides = [__sides]*self.sides_count
         else:
             self.sides = __sides
 
