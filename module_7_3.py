@@ -1,4 +1,3 @@
-import string
 class WordsFinder():
     file_names = []
 
