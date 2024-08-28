@@ -2,7 +2,7 @@ def add_everything_up(a, b):
     try:
         с = a + b
         result = format(с, '.3f')
-    except:
+    except TypeError:
         result = str(a) + str(b)
     return result
 
