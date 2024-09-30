@@ -2,6 +2,7 @@ from threading import Thread
 from time import sleep
 from random import randint
 import queue
+from itertools import cycle
 class Table:
     def __init__(self, number, guest = None):
         self.number = number
@@ -13,7 +14,8 @@ class Guest(Thread):
         self.name = name
 
     def run(self):
-        sleep(randint(3,10))
+        eat_time = randint(3,10)
+        sleep(eat_time)
 
 class Cafe:
     def __init__(self, *tables):
@@ -41,28 +43,43 @@ class Cafe:
 
 
     def discuss_guests(self):
-        for table in tables:
-            if table.guest.is_alive():
-                # if table.guest is not None:
+        for table in cycle(tables):
+            while table.guest is not None and not table.guest.is_alive():
+
+
 
                 print(f'{table.guest.name} покушал(-а) и ушёл(ушла)')
                 print(f'Стол номер {table.number} свободен')
                 table.guest = None
-
-            if not self.queue.empty():
-                if table.guest is None:
-                    table.guest = self.queue.get()
-                    print(f'{table.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}')
-                    table.guest.start()
+            # elif self.queue.empty() and table.guest is None:
+            #     break
 
 
 
 
+                if not self.queue.empty() and table.guest is None:
+
+                        table.guest = self.queue.get()
+                        print(f'{table.guest.name} вышел(-ла) из очереди и сел(-а) за стол номер {table.number}')
+                        table.guest.start()
+            # if self.queue.empty() and table.guest is None:
+            #     break
+
+            # if self.queue.empty() and not table.guest is None:
+            #     break
 
 
 
 
-# Создание столов
+
+
+
+
+
+
+
+
+#Создание столов
 tables = [Table(number) for number in range(1, 6)]
 # Имена гостей
 guests_names = [
