@@ -1,9 +1,7 @@
 import requests
 import pandas
+import numpy
 
-# numpy - massive
-# matplotlib - visual data
-# pillow - images
 
 # requests
 
@@ -57,3 +55,25 @@ import pandas
 #
 # sp = sheet_plus(df,'Банан', 98)
 # print(sp)
+
+#numpy
+
+# array0 = numpy.array([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])
+# array1 = numpy.array([0, 2, 3, 1])
+# array2 = numpy.array([0, 2, 3, 1])
+# array_x = numpy.random.randint(0, 10, size=(5, 5))
+
+
+# print(array0)
+# print(numpy.array_equal(array1, array2))
+# print(array0.shape, array1.shape, array2.shape)
+# print(array_x)
+
+# def matrix_upgrade(size_and_max_value):
+#     matrix_line = size_and_max_value
+#     matrix = numpy.zeros((size_and_max_value, matrix_line))
+#     matrix += numpy.arange(size_and_max_value)
+#     print(matrix)
+#
+# matrix_upgrade(5)
+
