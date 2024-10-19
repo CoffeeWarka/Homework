@@ -1,5 +1,6 @@
 import unittest
-import pprint
+
+
 class Runner:
     def __init__(self, name, speed = 5):
         self.name = name
@@ -53,41 +54,34 @@ class TournamentTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        # print(cls.all_results.items())
+        finish_board = {}
         for test_key, test_value in cls.all_results.items():
             for key, value in test_value.items():
-                print(f'\t{key}: {value.name}')
+                finish_board[key] = str(value)
+            print(finish_board)
 
     def test_turn1(self):
-        # list_test = [[self.runer_1, self.runer_3], [self.runer_2, self.runer_3],
-        #              [self.runer_1, self.runer_2, self.runer_3]]
         turn_1 = Tournament(90, self.runner_1, self.runner_3)
         result = turn_1.start()
-        # print(result[list(result.keys())[-1]] == 'Ник')
-        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
+        self.assertTrue(result[list(result.keys())[-1]] == 'Ник')
         self.all_results['test_turn1'] = result
 
     def test_turn2(self):
         turn_2 = Tournament(90, self.runner_2, self.runner_3)
         result = turn_2.start()
-        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
+        self.assertTrue(result[list(result.keys())[-1]] == 'Ник')
         self.all_results['test_turn2'] = result
 
     def test_turn3(self):
         turn_3 = Tournament(90, self.runner_1, self.runner_2, self.runner_3)
         result = turn_3.start()
-        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
+        self.assertTrue(result[list(result.keys())[-1]] == 'Ник')
         self.all_results['test_turn3'] = result
 
+    # Удаление объекта из списка participants будет происходить при дистанци <= 6 до того
+    # как будет обработан весь цикл и для каждого объекта будет запущен метод participant.run()
     def test_turn4(self):
-        """
-        Дополнительный тест, выявляющий ошибку алгоритма start класса Tournament
-        Ошибка заключается в том, что удаление объекта из списка participants может
-        происходить до того, как будет обработан весь цикл и для каждого объекта будет
-        запущен метод participant.run()
-        :return: None
-        """
         turn_4 = Tournament(6, self.runner_1, self.runner_2, self.runner_3)
         result = turn_4.start()
-        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка! Последним должен быть Ник')
+        self.assertTrue(result[list(result.keys())[-1]] == 'Ник', 'Ошибка логики!')
         self.all_results['test_turn4'] = result
