@@ -10,25 +10,24 @@ api = ''
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
-kb_start = ReplyKeyboardMarkup(resize_keyboard=True)
+kb_start = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text='Рассчитать'), KeyboardButton(text='Информация')],
+        [KeyboardButton(text='Купить')]
+    ],
+    resize_keyboard=True
+)
 
-calc_button = KeyboardButton(text='Рассчитать')
-info_button = KeyboardButton(text='Информация')
-buy_button = KeyboardButton(text='Купить')
 
-kb_start.add(buy_button)
-kb_start.add(calc_button)
-kb_start.add(info_button)
+buy_menu = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text='product1', callback_data="product_buying")],
+        [InlineKeyboardButton(text='product2', callback_data="product_buying")],
+        [InlineKeyboardButton(text='product3', callback_data="product_buying")],
+        [InlineKeyboardButton(text='product4', callback_data="product_buying")]
+    ]
+)
 
-buy_menu = InlineKeyboardMarkup()
-prod1_butt = InlineKeyboardButton(text='product1', callback_data="product_buying")
-prod2_butt = InlineKeyboardButton(text='product2', callback_data="product_buying")
-prod3_butt = InlineKeyboardButton(text='product3', callback_data="product_buying")
-prod4_butt = InlineKeyboardButton(text='product4', callback_data="product_buying")
-buy_menu.add(prod1_butt)
-buy_menu.add(prod2_butt)
-buy_menu.add(prod3_butt)
-buy_menu.add(prod4_butt)
 
 kb_menu = InlineKeyboardMarkup()
 norm_calc_button = InlineKeyboardButton(text='Рассчитать норму калорий', callback_data='calories')
@@ -84,18 +83,18 @@ async def send_calories(message, state):
 
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
-    await message.answer('Название: Product<number> | Описание: описание <number> | Цена: <number * 100>')
-    with open ('path','rb') as img1:
-        await message.answer_photo('')
-    await message.answer('Название: Product<number> | Описание: описание <number> | Цена: <number * 100>')
-    with open ('path','rb') as img1:
-        await message.answer_photo('')
-    await message.answer('Название: Product<number> | Описание: описание <number> | Цена: <number * 100>')
-    with open ('path','rb') as img1:
-        await message.answer_photo('')
-    await message.answer('Название: Product<number> | Описание: описание <number> | Цена: <number * 100>')
-    with open ('path','rb') as img1:
-        await message.answer_photo('')
+    with open ('Images/img (1).png','rb') as img1:
+        await message.answer('Название: Ускорин | Описание: Теряй калории быстро | Цена: 100')
+        await message.answer_photo(img1)
+    with open ('Images/img (2).png','rb') as img2:
+        await message.answer('Название: Ресторин | Описание: Восстановись после тренировки | Цена: 200')
+        await message.answer_photo(img2)
+    with open ('Images/img (3).png','rb') as img3:
+        await message.answer('Название: Смертин | Описание: Убей в себе лень | Цена: 300')
+        await message.answer_photo(img3)
+    with open ('Images/img (4).png','rb') as img4:
+        await message.answer('Название: Влюбин | Описание: Полюби заниматься спортом| Цена: 400')
+        await message.answer_photo(img4)
     await message.answer('Выберите продукт для покупки:', reply_markup=buy_menu)
 
 @dp.callback_query_handler(text='product_buying')
