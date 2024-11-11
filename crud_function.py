@@ -14,6 +14,29 @@ def initiate_db():
     price INTEGER NOT NULL
     );
     ''')
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Users(
+    id INTEGER PRIMARY KEY,
+    username TEXT NOT NULL,
+    email TEXT NOT NULL,
+    age INTEGER NOT NULL,
+    balance INTEGER NOT NULL
+    );
+    ''')
+
+
+def add_user(username, email, age):
+    cursor.execute('INSERT INTO Users VALUES (?, ?, ?, ?)',
+                   (username, email, age, 1000))
+
+def is_included(username):
+    check_user = cursor.execute(f'SELECT username FROM Users WHERE username={username}')
+    if check_user is None:
+        return False
+    else:
+        return True
+
+
 
 
 def get_all_products():
@@ -30,4 +53,3 @@ cursor.execute('INSERT INTO Products (title, description, price) VALUES (?, ?, ?
 cursor.execute('INSERT INTO Products (title, description, price) VALUES (?, ?, ?)',
                ('Влюбин', 'Полюби заниматься спортом', 400))
 connection.commit()
-
