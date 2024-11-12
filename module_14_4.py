@@ -7,7 +7,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import crud_function
 
-api = ''
+api = '7197912544:AAFhC9j48Bx_e5TeggDyLAcKyvY7OdQP3iI'
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -37,7 +37,6 @@ kb_menu.add(norm_calc_button)
 kb_menu.add(formulas_button)
 
 prod_list = crud_function.get_all_products()
-
 
 class UserState(StatesGroup):
     age = State()
@@ -87,18 +86,14 @@ async def send_calories(message, state):
 
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
-    with open ('../Images/img (1).png', 'rb') as img1:
-        await message.answer(f'Название: {prod_list[0][0]} | Описание: {prod_list[0][1]}  | Цена: {prod_list[0][2]}')
-        await message.answer_photo(img1)
-    with open ('../Images/img (2).png', 'rb') as img2:
-        await message.answer(f'Название: {prod_list[1][0]} | Описание: {prod_list[1][1]}  | Цена: {prod_list[1][2]}')
-        await message.answer_photo(img2)
-    with open ('../Images/img (3).png', 'rb') as img3:
-        await message.answer(f'Название: {prod_list[2][0]} | Описание: {prod_list[2][1]}  | Цена: {prod_list[2][2]}')
-        await message.answer_photo(img3)
-    with open ('../Images/img (4).png', 'rb') as img4:
-        await message.answer(f'Название: {prod_list[3][0]} | Описание: {prod_list[3][1]}  | Цена: {prod_list[3][2]}')
-        await message.answer_photo(img4)
+    for product in prod_list:
+        prod_number = 1
+        title = product[0]
+        description = product[1]
+        price = product[2]
+        with open (f'../Images/img ({prod_number}).png', 'rb') as prod_number:
+            await message.answer(f'Название: {title} | Описание: {description}  | Цена: {price}')
+            await message.answer_photo(prod_number)
     await message.answer('Выберите продукт для покупки:', reply_markup=buy_menu)
 
 @dp.callback_query_handler(text='product_buying')
