@@ -7,7 +7,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import crud_function
 
-api = '7197912544:AAFhC9j48Bx_e5TeggDyLAcKyvY7OdQP3iI'
+api = ''
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
@@ -87,13 +87,12 @@ async def send_calories(message, state):
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     for product in prod_list:
-        prod_number = 1
         title = product[0]
         description = product[1]
         price = product[2]
-        with open (f'../Images/img ({prod_number}).png', 'rb') as prod_number:
+        with open (f'../Images/{title}.png', 'rb') as img:
             await message.answer(f'Название: {title} | Описание: {description}  | Цена: {price}')
-            await message.answer_photo(prod_number)
+            await message.answer_photo(img)
     await message.answer('Выберите продукт для покупки:', reply_markup=buy_menu)
 
 @dp.callback_query_handler(text='product_buying')
