@@ -1,15 +1,18 @@
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 import asyncio
+import sqlite3
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import crud_function
+from crud_function import *
 
-api = ''
+api = '7197912544:AAFhC9j48Bx_e5TeggDyLAcKyvY7OdQP3iI'
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
+
+
 
 kb_start = ReplyKeyboardMarkup(
     keyboard=[
@@ -37,14 +40,15 @@ formulas_button = InlineKeyboardButton(text='Формулы расчёта', cal
 kb_menu.add(norm_calc_button)
 kb_menu.add(formulas_button)
 
-prod_list = crud_function.get_all_products()
+prod_list = get_all_products()
+
 
 
 class RegistrationState(StatesGroup):
     username = State()
-    email = State
-    age = State
-    balance = State(1000)
+    email = State()
+    age = State()
+    balance = State()
 
 
 @dp.message_handler(text='Регистрация')
@@ -55,7 +59,7 @@ async def sing_up(message):
 @dp.message_handler(state=RegistrationState.username)
 async def set_username(message, state):
     await state.update_data(username=message.text)
-    if crud_function.is_included(message.text):
+    if is_included(message.text) is False:
         await message.answer('Введите свой email:')
         await RegistrationState.email.set()
     else:
@@ -72,7 +76,10 @@ async def set_email(message, state):
 async def set_age(message, state):
     await state.update_data(age=message.text)
     user_data = await state.get_data()
-    crud_function.add_user(user_data['username'], user_data['email'], user_data['age'])
+    username = str(user_data['username'])
+    email = str(user_data['email'])
+    age = int(user_data['age'])
+    add_user(username, email, age)
     await message.answer('Регистрация прошла успешно!')
     await state.finish()
 
@@ -125,18 +132,13 @@ async def send_calories(message, state):
 
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
-    with open ('../Images/img (1).png', 'rb') as img1:
-        await message.answer(f'Название: {prod_list[0][0]} | Описание: {prod_list[0][1]}  | Цена: {prod_list[0][2]}')
-        await message.answer_photo(img1)
-    with open ('../Images/img (2).png', 'rb') as img2:
-        await message.answer(f'Название: {prod_list[1][0]} | Описание: {prod_list[1][1]}  | Цена: {prod_list[1][2]}')
-        await message.answer_photo(img2)
-    with open ('../Images/img (3).png', 'rb') as img3:
-        await message.answer(f'Название: {prod_list[2][0]} | Описание: {prod_list[2][1]}  | Цена: {prod_list[2][2]}')
-        await message.answer_photo(img3)
-    with open ('../Images/img (4).png', 'rb') as img4:
-        await message.answer(f'Название: {prod_list[3][0]} | Описание: {prod_list[3][1]}  | Цена: {prod_list[3][2]}')
-        await message.answer_photo(img4)
+    for product in prod_list:
+        title = product[0]
+        description = product[1]
+        price = product[2]
+        with open (f'../Images/{title}.png', 'rb') as img:
+            await message.answer(f'Название: {title} | Описание: {description}  | Цена: {price}')
+            await message.answer_photo(img)
     await message.answer('Выберите продукт для покупки:', reply_markup=buy_menu)
 
 @dp.callback_query_handler(text='product_buying')
