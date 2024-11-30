@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request, HTTPException, Path
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
-from typing import Annotated, List
 
 
 app = FastAPI(swagger_ui_parameters={"tryItOutEnabled": True}, debug=True)
@@ -18,18 +17,13 @@ class User(BaseModel):
 
 
 @app.get('/')
-async def req(request: Request) -> templates.TemplateResponse:
-    return templates.TemplateResponse('users.html',{'request':request, 'users': users})
+async def main_page(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse('users.html', {'request': request, 'users': users})
 
 
 @app.get('/user/{user_id}')
-async def user_req(request: Request, user_id: int) -> templates.TemplateResponse:
-    return templates.TemplateResponse('users.html', {'request': request, 'user': users[user_id]})
-
-
-@app.get('/users')
-async def all_users() -> List[User]:
-    return users
+async def get_user(request: Request, user_id: int) -> HTMLResponse:
+    return templates.TemplateResponse('users.html', {'request': request, 'user': users[user_id-1]})
 
 
 @app.post('/user/{username}/{age}')
