@@ -27,4 +27,3 @@ async def update_user():
 async def delete_user():
     pass
 
-
