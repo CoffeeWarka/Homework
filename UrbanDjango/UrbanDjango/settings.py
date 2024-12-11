@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'example1',
     'example2',
     'example3',
-    'task2'
+    'task2',
+    'task3',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'UrbanDjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates/second_task'],
+        'DIRS': [BASE_DIR / 'templates/second_task', 'templates/third_task'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
