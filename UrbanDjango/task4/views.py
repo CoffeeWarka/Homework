@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
 def review_temp(request):
     return render(request, 'review.html')
 
@@ -14,3 +14,4 @@ def watchlist_temp(request):
     context = {'movie1': movie1, 'movie2': movie2, 'movie3': movie3,
                }
     return render(request, 'watchlist.html', context)
+
