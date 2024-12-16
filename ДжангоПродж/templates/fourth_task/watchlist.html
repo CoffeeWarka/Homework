@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'fourth_task/menu.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Список фильмов</title>
+</head>
+<body>
+    {% block pagename %} <h1> Фильмы </h1> {% endblock %}
+
+    {% block menu %} {{ block.super }} {% endblock %}
+
+    {% block content %}
+        {% for i in movies %}
+            <ul>
+                <li> {{ i }} <button>Отзыв</button></li>
+            </ul>
+        {% endfor %}
+    {% endblock %}
+
+</body>
+</html>
