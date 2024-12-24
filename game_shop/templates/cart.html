@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'menu.html' %}
+<head>
+    <meta charset="UTF-8">
+     {% block title %}<title>Корзина</title>{% endblock %}
+</head>
+<body>
+{% block pagename %} <h1> Обзоры </h1> {% endblock %}
+
+{% block menu %} {{ block.super }} {% endblock %}
+
+{% block content %}
+<h1>Вы не оставили ни одного отзыва... Это можно сделать на странице
+<a href="/watchlist/">списка фильмов</a></h1>
+{% endblock %}
+</body>
+</html>
