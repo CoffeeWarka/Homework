@@ -13,6 +13,7 @@ class Buyer(models.Model):
 class Game(models.Model):
     title = models.CharField(max_length=50)
     cost = models.IntegerField()
+    size = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     description = models.TextField()
     age_limited = models.BooleanField(default=False)
     buyer = models.ManyToManyField(Buyer, related_name='game')
