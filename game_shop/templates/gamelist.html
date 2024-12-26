@@ -6,14 +6,15 @@
      {% block title %}<title>Список игр</title>{% endblock %}
 </head>
 <body>
-    {% block pagename %} <h1> Фильмы </h1> {% endblock %}
+    {% block pagename %} <h1> Игры </h1> {% endblock %}
 
     {% block menu %} {{ block.super }} {% endblock %}
 
     {% block content %}
-        {% for i in movies %}
+        {% for i in gamelist %}
             <ul>
-                <li> {{ i }} <button>Отзыв</button></li>
+                <li> {{ i.title }}|{{ i.description }}|Стоимость: {{ i.cost }}
+                    <button>Купить</button></li>
             </ul>
         {% endfor %}
     {% endblock %}

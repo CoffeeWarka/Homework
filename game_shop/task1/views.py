@@ -15,7 +15,8 @@ def main_temp(request):
 
 
 def gamelist_temp(request):
-    context = {'movies': ['Крёстный отец', 'Список Шиндлера', 'Хороший, плохой, злой']}
+    gamelist = Game.objects.all()
+    context = {'gamelist': gamelist}
     return render(request, 'gamelist.html', context)
 
 
