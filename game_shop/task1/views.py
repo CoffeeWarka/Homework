@@ -2,8 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from select import error
 from .forms import UserRegister
-from .models import Buyer, Game
+from .models import Buyer, Game, News
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
 
 def cart_temp(request):
@@ -71,3 +72,11 @@ def sign_up_by_django(request):
         context = {'info': info}
         return render(request, 'registration_page.html', context)
     return render(request, 'registration_page.html', context)
+
+
+def news(request):
+    all_news = News.objects.all().order_by('-date')
+    paginator = Paginator(all_news, 3)
+    news_page_number = request.GET.get('page')
+    news_page = paginator.get_page(news_page_number)
+    return render(request, 'news.html', {'page_obj': news_page})
