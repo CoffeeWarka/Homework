@@ -1,0 +1,11 @@
+python manage.py shell
+from task1.models import Buyer, Game
+buyer1 = Buyer.objects.create(name='Carl',balance=9001, age = 29)
+buyer2 = Buyer.objects.create(name='Amy',balance=9999, age = 18) 
+buyer3 = Buyer.objects.create(name='Kira',balance=4815, age = 15)
+game1 = Game.objects.create(title='Witcher 3',cost=1000, description='Shevelis, Plotva!', age_limited=True) 
+game2 = Game.objects.create(title='Grim Dawn',cost=500, description='Best ARPG!', age_limited=True)   
+game3 = Game.objects.create(title='Minecraft',cost=100, description='You know what it is.')  
+buyer1.game.set([game1, game2, game3])
+buyer2.game.set([game1, game2]) 
+buyer3.game.set([game3]) 
