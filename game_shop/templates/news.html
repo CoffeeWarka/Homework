@@ -3,9 +3,9 @@
     {% extends 'menu.html' %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% block title %}<title>Новости</title>{% endblock %}
 </head>
 <body>
-News
+{% block pagename %} <h1> Новости </h1> {% endblock %}
 </body>
 </html>
