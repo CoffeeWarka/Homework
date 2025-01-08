@@ -24,7 +24,7 @@ urlpatterns = [
     path('main/', main_temp),
     path('cart/', cart_temp),
     path('gamelist/', gamelist_temp),
-    path('news/', news),
+    path('platform/news/', news),
 
     path('', sign_up_by_html),
     path('django_sign_up/', sign_up_by_django),
